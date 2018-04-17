@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Express App</title>
+  <!-- complete bootstrap css -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- css file -->
+  <link rel="stylesheet" type="text/css" href="../styles/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <div class="row">
+        <!-- <div class="col"> -->
+        <a class="backToContacts btn btn-primary btn-lg" href="/add" role="button">Add More Players</a>
+        <!-- </div> -->
+        <!-- <div class="col"> -->
+        <a class="backToIndex btn btn-danger btn-lg" href="/" role="button">Home</a>
+        <a class="clearRoster btn btn-primary btn-lg" href="view" role="button">Delete Roster</a>
+        <!-- </div> -->
+      </div>
+      <h3 class="display-3">Your Team</h3>
+      <p class="playerViewSection"></p>
+    </div>
+  </div>
+
+  <!-- jquery cdn -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <!-- complete bootstrap js -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script>
+
+    $.get('/getPlayers').then(function (r) {
+      for (var i = 0; i < r.length; i++) {
+        $(".playerViewSection").append('<div class="card" style="width: 18rem;">\
+          <div class="card-body">\
+            <h5 class="card-title player-name">'+ r[i].name + '</h5>\
+            <p class="card-text player-info"> Position: '+ r[i].position + '<br>PPG: ' + r[i].ppg + '<br>Notes: ' + r[i].misc + '</p>\
+          </div>\
+        </div>'
+        )
+      }
+    })
+
+    $(".clearRoster").on('click', function () {
+     
+      $.post('/deleteRoster').then(function (r) {
+      })
+    })
+
+//----- Joel's Pub Crawl Results
+      //  $("#search-results-box").append('<div class = "container " id = "search-results-' + x + '">\
+      //           <div class="row"  id = "search-result-' + x + '">\
+      //           <div class="col-md-4">\
+      //           <div class="container justify-content-start"><img src="' + returnedBarArray[x].barPhoto + '"\
+      //           class="img-fluid rounded search-images" id="search-image-' + x + '">\
+      //           </div> \
+      //           </div> \
+      //           <div class="col-md-8"> \
+      //           <div class="container justify-content-end"> \
+      //           <h5 class="card-title search-titles" id="search-title-' + x + '">' + returnedBarArray[x].barName + '</h5> \
+      //           <p class="search-p" id = "search-rating">' + returnedBarArray[x].barRating + '</p>\
+      //           <p class="search-p" id = "search-address">' + returnedBarArray[x].barAddress + '</p>\
+      //           <p class="search-p" id = "search-hours">' + openNow + '</p>\
+      //           <button type = "button" class = "addMeToCrawl" dataIndex = "' + returnedBarArray[x].barIndex + '">Add to Itinerary</button>\
+      //           </div> \
+      //           </div> \
+      //           </div> \
+      //           </div>')
+
+
+  </script>
+</body>
+
+</html>
